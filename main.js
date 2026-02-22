@@ -99,13 +99,8 @@ function renderTab(tab) {
         case 'meetings': renderMeetings(container); break;
         case 'step10': renderStep10(container); break;
     }
-    if (tab === 'timer') {
-        main.style.overflow = 'hidden';
-        main.style.paddingBottom = '80px';
-    } else {
-        main.style.overflow = 'auto';
-        main.style.paddingBottom = '120px';
-    }
+    main.style.overflow = 'auto';
+    main.style.paddingBottom = '120px';
     main.appendChild(container);
 
     // Initial check for autogrow textareas
