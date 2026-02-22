@@ -248,7 +248,7 @@ function renderStep10(container) {
             </div>
         </div>
         <div id="step-area"></div>
-        ${!state.isStep10EditMode ? `<button class="btn-primary" id="save-send-bot" style="margin-top: 20px;">Надіслати та очистити</button>` : ''}
+        ${!state.isStep10EditMode ? `<button class="btn-primary" id="save-send-bot" style="margin-top: 20px;">Зберегти собі</button>` : ''}
     `;
 
     const area = container.querySelector('#step-area');
@@ -310,7 +310,9 @@ function renderStep10(container) {
             delete state.step10Answers[today];
             localStorage.setItem('step10_answers', JSON.stringify(state.step10Answers));
 
-            const successMsg = sentOk ? '✅ Надіслано та скопійовано! Відповіді очищено.' : '✅ Скопійовано! (Авто-відправка не вдалася, вставте вручну). Відповіді очищено.';
+            const successMsg = sentOk
+                ? '✅ Надіслано в ваш чат з застосунком та скопійовано!\n\nВідповіді в самому застосунку очищено.'
+                : '✅ Скопійовано! (Авто-відправка не вдалася, вставте вручну).\n\nВідповіді в самому застосунку очищено.';
 
             if (tg?.showAlert) {
                 tg.showAlert(successMsg, () => {
