@@ -241,7 +241,7 @@ function renderStep10(container) {
             </button>
         </div>
         <div id="step-area"></div>
-        ${!state.isStep10EditMode ? `<button class="btn-primary" id="save-send-bot" style="margin-top: 20px;">Зберегти та надіслати боту</button>` : ''}
+        ${!state.isStep10EditMode ? `<button class="btn-primary" id="save-send-bot" style="margin-top: 20px;">Скопіювати та відкрити бота</button>` : ''}
     `;
 
     const area = container.querySelector('#step-area');
@@ -271,41 +271,29 @@ function renderStep10(container) {
                 return;
             }
 
-            const tg = window.Telegram?.WebApp;
-            const chatId = tg?.initDataUnsafe?.user?.id;
-            const botUsername = import.meta.env.VITE_BOT_USERNAME || 'OnlyTodayNA_bot';
-
             sendBtn.disabled = true;
-            sendBtn.innerText = 'Надсилаю...';
+            sendBtn.innerText = 'Копіюю...';
 
             try {
-                if (chatId) {
-                    // Send via Bot API directly to the user (Mini App mode)
-                    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: chatId, text: msg })
-                    });
-                    if (res.ok) {
-                        alert('Успішно надіслано боту!');
-                        delete state.step10Answers[today];
-                        localStorage.setItem('step10_answers', JSON.stringify(state.step10Answers));
-                        renderTab('step10');
-                    } else {
-                        throw new Error('API Error');
-                    }
-                } else {
-                    // Browser mode fallback: Open deep link to the bot
-                    window.open(`https://t.me/${botUsername}?text=${encodeURIComponent(msg)}`, '_blank');
-                }
-            } catch (err) {
-                console.error(err);
-                // Final fallback
-                window.open(`https://t.me/${botUsername}?text=${encodeURIComponent(msg)}`, '_blank');
-            } finally {
-                sendBtn.disabled = false;
-                sendBtn.innerText = 'Зберегти та надіслати боту';
+                await navigator.clipboard.writeText(msg);
+            } catch (e) {
+                console.warn('Clipboard not available:', e);
             }
+
+            const tg = window.Telegram?.WebApp;
+            const botUsername = import.meta.env.VITE_BOT_USERNAME || 'onlytodayuabot';
+
+            if (tg?.showAlert) {
+                tg.showAlert('✅ Відповіді скопійовано!\nВставте їх у чат з ботом після закриття.', () => {
+                    tg.close();
+                });
+            } else {
+                window.open(`https://t.me/${botUsername}`, '_blank');
+                alert('✅ Відповіді скопійовано в буфер обміну!\nВставте їх у чат з ботом.');
+            }
+
+            sendBtn.disabled = false;
+            sendBtn.innerText = 'Скопіювати та відкрити бота';
         });
     }
 }
@@ -314,17 +302,43 @@ function renderInputQuestions(parent, data) {
     state.step10Questions.forEach((q, i) => {
         const card = document.createElement('div');
         card.className = 'card';
-        card.innerHTML = `<span style="font-weight: 800; margin-bottom: 12px; display: block; color: var(--primary-color); font-size: 0.95rem;">${i + 1}. ${q}</span><textarea placeholder="Ваша відповідь..." data-idx="${i}">${data[i] || ''}</textarea>`;
+        card.style.cursor = 'pointer';
+        const answer = data[i] || '';
+        card.innerHTML = `
+            <span style="font-weight: 800; margin-bottom: 8px; display: block; color: var(--primary-color); font-size: 0.9rem;">${i + 1}. ${q}</span>
+            <div class="answer-preview ${answer ? '' : 'answer-empty'}">
+                ${answer ? answer.replace(/\n/g, '<br>') : 'Натисніть щоб відповісти...'}
+            </div>
+        `;
+        card.addEventListener('click', () => openAnswerModal(i, q, data[i] || ''));
         parent.appendChild(card);
+    });
+}
 
-        const textarea = card.querySelector('textarea');
-        textarea.addEventListener('input', (e) => {
-            const today = DateTime.now().toISODate();
-            if (!state.step10Answers[today]) state.step10Answers[today] = {};
-            state.step10Answers[today][i] = e.target.value;
-            localStorage.setItem('step10_answers', JSON.stringify(state.step10Answers));
-            autoGrow(e.target);
-        });
+function openAnswerModal(idx, question, currentAnswer) {
+    const today = DateTime.now().toISODate();
+    openModal(`
+        <div style="margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color);">
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <span style="flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; background: var(--primary-color); color: white; width: 28px; height: 28px; border-radius: 50%; font-weight: 900; font-size: 0.8rem;">${idx + 1}</span>
+                <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">${question}</p>
+            </div>
+        </div>
+        <textarea id="answer-modal-ta" placeholder="Ваша відповідь..." style="width: 100%; min-height: 160px; border: 2px solid var(--border-color); border-radius: 16px; padding: 14px; font-size: 1rem; font-family: inherit; resize: none; box-sizing: border-box; margin-bottom: 14px; outline: none; transition: border-color 0.2s; display: block;">${currentAnswer}</textarea>
+        <button class="btn-primary" id="save-answer-modal-btn">Зберегти відповідь</button>
+    `, true);
+
+    const ta = document.getElementById('answer-modal-ta');
+    setTimeout(() => { ta.focus(); }, 100);
+    ta.addEventListener('focus', () => { ta.style.borderColor = 'var(--accent-color)'; });
+    ta.addEventListener('blur', () => { ta.style.borderColor = 'var(--border-color)'; });
+
+    document.getElementById('save-answer-modal-btn').addEventListener('click', () => {
+        if (!state.step10Answers[today]) state.step10Answers[today] = {};
+        state.step10Answers[today][idx] = ta.value;
+        localStorage.setItem('step10_answers', JSON.stringify(state.step10Answers));
+        closeModal();
+        renderTab('step10');
     });
 }
 
@@ -353,7 +367,7 @@ function renderEditQuestions(parent) {
 function pluralize(n, forms) {
     return n % 10 == 1 && n % 100 != 11 ? forms[0] : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? forms[1] : forms[2]);
 }
-function openModal(html) { modalBody.innerHTML = html; modalOverlay.classList.add('active'); }
-function closeModal() { modalOverlay.classList.remove('active'); }
+function openModal(html, topAlign = false) { modalBody.innerHTML = html; modalOverlay.classList.add('active'); if (topAlign) modalOverlay.classList.add('top-align'); }
+function closeModal() { modalOverlay.classList.remove('active', 'top-align'); }
 
 init();
