@@ -225,7 +225,7 @@ main {
     bottom: 0;
     border-radius: 50%;
     border: 2.5px dotted rgba(255, 255, 255, 0.35);
-    margin: -18px;
+    margin: -7px;
     opacity: 1;
 }
 
@@ -249,7 +249,6 @@ main {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.25));
 }
 
 .days-label {
