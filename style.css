@@ -186,14 +186,15 @@ main {
 .timer-ring {
     width: 200px;
     height: 200px;
-    background: white;
+    background: transparent;
     border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.75);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     z-index: 2;
-    box-shadow: 0 0 70px rgba(255, 255, 255, 0.15), 0 0 30px rgba(26, 27, 139, 0.2);
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.06), inset 0 0 40px rgba(255, 255, 255, 0.03);
 }
 
 .timer-ring-inner {
@@ -201,7 +202,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--primary-color);
+    color: white;
     text-align: center;
     z-index: 3;
 }
@@ -223,9 +224,9 @@ main {
     right: 0;
     bottom: 0;
     border-radius: 50%;
-    border: 4px dotted var(--accent-color);
-    margin: -15px;
-    opacity: 0.6;
+    border: 2.5px dotted rgba(255, 255, 255, 0.35);
+    margin: -18px;
+    opacity: 1;
 }
 
 @keyframes rotate {
@@ -240,18 +241,25 @@ main {
 
 
 .days-main {
-    font-size: 3.8rem;
+    font-size: 4.2rem;
     font-weight: 900;
     line-height: 1;
-    letter-spacing: -2px;
+    letter-spacing: -3px;
+    background: linear-gradient(170deg, #ffffff 0%, #b0bcff 55%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.25));
 }
 
 .days-label {
-    font-size: 1rem;
+    font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
-    margin-top: 4px;
-    opacity: 0.9;
+    margin-top: 6px;
+    opacity: 0.75;
+    letter-spacing: 2px;
+    color: white;
 }
 
 /* Beautiful Squares Breakdown */
@@ -264,33 +272,40 @@ main {
 }
 
 .breakdown-item {
-    background: var(--surface-color);
+    background: rgba(10, 17, 40, 0.55);
     padding: 14px 8px;
     border-radius: var(--inner-radius);
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    gap: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     transition: 0.3s;
-    color: var(--primary-color);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .breakdown-item:active {
     transform: scale(0.96);
-    background: var(--primary-soft);
+    background: rgba(26, 27, 139, 0.6);
 }
 
 .breakdown-val {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 900;
+    color: white;
+    letter-spacing: -0.5px;
 }
 
 .breakdown-lbl {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
-    opacity: 0.6;
+    opacity: 0.65;
+    letter-spacing: 1.5px;
+    color: white;
 }
 
 /* Section Headers on white */
