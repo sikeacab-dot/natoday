@@ -15,7 +15,6 @@ const ICONS = {
 
 // --- Configuration ---
 const BOT_TOKEN = import.meta.env.VITE_BOT_TOKEN;
-const PEER_ID = import.meta.env.VITE_PEER_ID;
 
 // --- State ---
 const state = {

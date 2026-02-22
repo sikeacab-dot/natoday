@@ -506,50 +506,6 @@ textarea:focus {
     cursor: pointer;
 }
 
-/* Diary Book Page Style */
-.diary-book-page {
-    background: #fffcf5;
-    /* Paper tone */
-    background-image: radial-gradient(#d1d1d1 1px, transparent 1px);
-    background-size: 20px 20px;
-    padding: 40px 30px;
-    border-radius: 4px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 5px 0 15px rgba(0, 0, 0, 0.1);
-    position: relative;
-    font-family: 'Georgia', serif;
-    color: #2d3436;
-    min-height: 350px;
-    border-left: 12px solid #e0e0e0;
-}
-
-.diary-book-page::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 10px;
-    bottom: 0;
-    width: 1px;
-    background: rgba(0, 0, 0, 0.05);
-}
-
-.diary-book-header {
-    font-style: italic;
-    font-size: 0.9rem;
-    margin-bottom: 25px;
-    opacity: 0.6;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: 10px;
-}
-
-.diary-content {
-    font-size: 1.25rem;
-    line-height: 1.8;
-}
-
-.hidden {
-    display: none !important;
-}
-
 /* Top-aligned modal for answer editing (keyboard-friendly) */
 .modal-overlay.top-align {
     align-items: flex-start;
@@ -581,6 +537,10 @@ textarea:focus {
     background: #f8fafc !important;
     border: 1.5px dashed rgba(26, 27, 139, 0.2) !important;
     font-style: italic;
+}
+
+.hidden {
+    display: none !important;
 }
 
 /* Fix all inputs inside modals to not overflow */
