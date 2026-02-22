@@ -236,12 +236,19 @@ function renderStep10(container) {
     container.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <h2 style="font-weight: 900; margin: 0;">👣 10 Крок</h2>
-            <button class="btn-secondary" id="edit-q-btn" style="padding: 0; border-radius: 12px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white;">
-                ${state.isStep10EditMode ? ICONS.check : ICONS.pencil}
-            </button>
+            <div style="display: flex; gap: 8px;">
+                ${!state.isStep10EditMode ? `
+                    <button class="btn-secondary" id="reset-answers-btn" style="padding: 0; border-radius: 12px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444;">
+                        ${ICONS.trash}
+                    </button>
+                ` : ''}
+                <button class="btn-secondary" id="edit-q-btn" style="padding: 0; border-radius: 12px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white;">
+                    ${state.isStep10EditMode ? ICONS.check : ICONS.pencil}
+                </button>
+            </div>
         </div>
         <div id="step-area"></div>
-        ${!state.isStep10EditMode ? `<button class="btn-primary" id="save-send-bot" style="margin-top: 20px;">Скопіювати та відкрити бота</button>` : ''}
+        ${!state.isStep10EditMode ? `<button class="btn-primary" id="save-send-bot" style="margin-top: 20px;">Надіслати та очистити</button>` : ''}
     `;
 
     const area = container.querySelector('#step-area');
@@ -272,14 +279,19 @@ function renderStep10(container) {
                 return;
             }
 
+            sendBtn.disabled = true;
+            sendBtn.innerText = 'Відправка та копіювання...';
+
+            // Always copy to clipboard first
+            try {
+                await navigator.clipboard.writeText(msg);
+            } catch (e) { console.warn('Clipboard error:', e); }
+
             const tg = window.Telegram?.WebApp;
             const chatId = tg?.initDataUnsafe?.user?.id;
             const botToken = BOT_TOKEN;
 
-            sendBtn.disabled = true;
-            sendBtn.innerText = 'Надсилаю...';
-
-            // --- STRATEGY 1: Bot API (Most automatic & reliable) ---
+            let sentOk = false;
             if (chatId && botToken) {
                 try {
                     const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
@@ -287,50 +299,38 @@ function renderStep10(container) {
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ chat_id: chatId, text: msg })
                     });
-                    if (response.ok) {
-                        if (tg?.showAlert) {
-                            tg.showAlert('✅ Відповіді надіслано боту!', () => tg.close());
-                        } else {
-                            alert('✅ Відповіді надіслано боту!');
-                        }
-                        return;
-                    }
-                } catch (e) {
-                    console.error('Bot API error:', e);
-                }
+                    sentOk = response.ok;
+                } catch (e) { console.error('Bot API error:', e); }
             }
 
-            // --- STRATEGY 2: sendData (Backup for specific contexts) ---
-            try {
-                if (tg && tg.sendData) {
-                    tg.sendData(msg);
-                    // We don't return here because if sendData is not supported by context, it might do nothing
-                }
-            } catch (e) {
-                console.error('sendData error:', e);
+            // Also try sendData
+            try { if (tg && tg.sendData) tg.sendData(msg); } catch (e) { }
+
+            // Clear answers after successful actions
+            delete state.step10Answers[today];
+            localStorage.setItem('step10_answers', JSON.stringify(state.step10Answers));
+
+            const successMsg = sentOk ? '✅ Надіслано та скопійовано! Відповіді очищено.' : '✅ Скопійовано! (Авто-відправка не вдалася, вставте вручну). Відповіді очищено.';
+
+            if (tg?.showAlert) {
+                tg.showAlert(successMsg, () => {
+                    if (sentOk) tg.close();
+                    else renderTab('step10');
+                });
+            } else {
+                alert(successMsg);
+                renderTab('step10');
             }
+        });
+    }
 
-            // --- STRATEGY 3: Clipboard + Redirect (Final Fallback) ---
-            try {
-                await navigator.clipboard.writeText(msg);
-                const botUsername = import.meta.env.VITE_BOT_USERNAME || 'onlytodayuabot';
-                const successMsg = 'Автоматична відправка не вдалася, але відповіді скопійовано!\nВставте їх у чат з ботом.';
-
-                if (tg?.showAlert) {
-                    tg.showAlert(successMsg, () => {
-                        window.open(`https://t.me/${botUsername}`, '_blank');
-                        sendBtn.disabled = false;
-                        sendBtn.innerText = 'Скопіювати та відкрити бота';
-                    });
-                } else {
-                    alert(successMsg);
-                    window.open(`https://t.me/${botUsername}`, '_blank');
-                }
-            } catch (err) {
-                alert('Помилка: не вдалося надіслати чи скопіювати. Перевірте дозволи.');
-            } finally {
-                sendBtn.disabled = false;
-                sendBtn.innerText = 'Спробувати ще раз';
+    const resetBtn = container.querySelector('#reset-answers-btn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            if (confirm('Ви впевнені, що хочете очистити всі відповіді за сьогодні?')) {
+                delete state.step10Answers[today];
+                localStorage.setItem('step10_answers', JSON.stringify(state.step10Answers));
+                renderTab('step10');
             }
         });
     }
