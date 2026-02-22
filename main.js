@@ -255,10 +255,11 @@ function renderStep10(container) {
 
     const sendBtn = container.querySelector('#save-send-bot');
     if (sendBtn) {
-        sendBtn.addEventListener('click', () => {
+        sendBtn.addEventListener('click', async () => {
             const answers = state.step10Answers[today] || {};
             let msg = `👣 10 крок (${DateTime.now().toFormat('dd.MM')})\n\n`;
             let hasAnswers = false;
+
             state.step10Questions.forEach((q, i) => {
                 if (answers[i] && answers[i].trim()) {
                     msg += `${i + 1}. ${q}\n📝 ${answers[i]}\n\n`;
@@ -272,38 +273,65 @@ function renderStep10(container) {
             }
 
             const tg = window.Telegram?.WebApp;
+            const chatId = tg?.initDataUnsafe?.user?.id;
+            const botToken = BOT_TOKEN;
 
-            // 1. Try native Telegram sendData (Works if opened via Keyboard Button)
+            sendBtn.disabled = true;
+            sendBtn.innerText = 'Надсилаю...';
+
+            // --- STRATEGY 1: Bot API (Most automatic & reliable) ---
+            if (chatId && botToken) {
+                try {
+                    const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: chatId, text: msg })
+                    });
+                    if (response.ok) {
+                        if (tg?.showAlert) {
+                            tg.showAlert('✅ Відповіді надіслано боту!', () => tg.close());
+                        } else {
+                            alert('✅ Відповіді надіслано боту!');
+                        }
+                        return;
+                    }
+                } catch (e) {
+                    console.error('Bot API error:', e);
+                }
+            }
+
+            // --- STRATEGY 2: sendData (Backup for specific contexts) ---
             try {
                 if (tg && tg.sendData) {
                     tg.sendData(msg);
-                    return; // The app will close itself
+                    // We don't return here because if sendData is not supported by context, it might do nothing
                 }
             } catch (e) {
                 console.error('sendData error:', e);
             }
 
-            // 2. Fallback: Copy to clipboard and open bot link
-            sendBtn.disabled = true;
-            sendBtn.innerText = 'Копіюю...';
-
-            navigator.clipboard.writeText(msg).then(() => {
+            // --- STRATEGY 3: Clipboard + Redirect (Final Fallback) ---
+            try {
+                await navigator.clipboard.writeText(msg);
                 const botUsername = import.meta.env.VITE_BOT_USERNAME || 'onlytodayuabot';
+                const successMsg = 'Автоматична відправка не вдалася, але відповіді скопійовано!\nВставте їх у чат з ботом.';
 
                 if (tg?.showAlert) {
-                    tg.showAlert('✅ Відповіді скопійовано!\nВставте їх у чат з ботом.', () => {
+                    tg.showAlert(successMsg, () => {
                         window.open(`https://t.me/${botUsername}`, '_blank');
+                        sendBtn.disabled = false;
+                        sendBtn.innerText = 'Скопіювати та відкрити бота';
                     });
                 } else {
-                    alert('✅ Відповіді скопійовано!\nВставте їх у чат.');
+                    alert(successMsg);
                     window.open(`https://t.me/${botUsername}`, '_blank');
                 }
-            }).catch(err => {
-                alert('Помилка копіювання. Спробуйте ще раз.');
-            }).finally(() => {
+            } catch (err) {
+                alert('Помилка: не вдалося надіслати чи скопіювати. Перевірте дозволи.');
+            } finally {
                 sendBtn.disabled = false;
-                sendBtn.innerText = 'Скопіювати та відкрити бота';
-            });
+                sendBtn.innerText = 'Спробувати ще раз';
+            }
         });
     }
 }
