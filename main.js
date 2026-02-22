@@ -318,7 +318,7 @@ function renderInputQuestions(parent, data) {
 function openAnswerModal(idx, question, currentAnswer) {
     const today = DateTime.now().toISODate();
     openModal(`
-        <div style="margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color);">
+        <div style="margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-right: 44px;">
             <div style="display: flex; align-items: flex-start; gap: 10px;">
                 <span style="flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; background: var(--primary-color); color: white; width: 28px; height: 28px; border-radius: 50%; font-weight: 900; font-size: 0.8rem;">${idx + 1}</span>
                 <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">${question}</p>
