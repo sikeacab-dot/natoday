@@ -255,7 +255,7 @@ function renderStep10(container) {
 
     const sendBtn = container.querySelector('#save-send-bot');
     if (sendBtn) {
-        sendBtn.addEventListener('click', async () => {
+        sendBtn.addEventListener('click', () => {
             const answers = state.step10Answers[today] || {};
             let msg = `👣 10 крок (${DateTime.now().toFormat('dd.MM')})\n\n`;
             let hasAnswers = false;
@@ -271,29 +271,39 @@ function renderStep10(container) {
                 return;
             }
 
+            const tg = window.Telegram?.WebApp;
+
+            // 1. Try native Telegram sendData (Works if opened via Keyboard Button)
+            try {
+                if (tg && tg.sendData) {
+                    tg.sendData(msg);
+                    return; // The app will close itself
+                }
+            } catch (e) {
+                console.error('sendData error:', e);
+            }
+
+            // 2. Fallback: Copy to clipboard and open bot link
             sendBtn.disabled = true;
             sendBtn.innerText = 'Копіюю...';
 
-            try {
-                await navigator.clipboard.writeText(msg);
-            } catch (e) {
-                console.warn('Clipboard not available:', e);
-            }
+            navigator.clipboard.writeText(msg).then(() => {
+                const botUsername = import.meta.env.VITE_BOT_USERNAME || 'onlytodayuabot';
 
-            const tg = window.Telegram?.WebApp;
-            const botUsername = import.meta.env.VITE_BOT_USERNAME || 'onlytodayuabot';
-
-            if (tg?.showAlert) {
-                tg.showAlert('✅ Відповіді скопійовано!\nВставте їх у чат з ботом після закриття.', () => {
-                    tg.close();
-                });
-            } else {
-                window.open(`https://t.me/${botUsername}`, '_blank');
-                alert('✅ Відповіді скопійовано в буфер обміну!\nВставте їх у чат з ботом.');
-            }
-
-            sendBtn.disabled = false;
-            sendBtn.innerText = 'Скопіювати та відкрити бота';
+                if (tg?.showAlert) {
+                    tg.showAlert('✅ Відповіді скопійовано!\nВставте їх у чат з ботом.', () => {
+                        window.open(`https://t.me/${botUsername}`, '_blank');
+                    });
+                } else {
+                    alert('✅ Відповіді скопійовано!\nВставте їх у чат.');
+                    window.open(`https://t.me/${botUsername}`, '_blank');
+                }
+            }).catch(err => {
+                alert('Помилка копіювання. Спробуйте ще раз.');
+            }).finally(() => {
+                sendBtn.disabled = false;
+                sendBtn.innerText = 'Скопіювати та відкрити бота';
+            });
         });
     }
 }
