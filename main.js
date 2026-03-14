@@ -10,7 +10,14 @@ const ICONS = {
     pencil: `<svg style="width:20px; height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>`,
     trash: `<svg style="width:20px; height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>`,
     check: `<svg style="width:20px; height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`,
-    settings: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`
+    settings: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+    chevronLeft: `<svg style="width:24px; height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`,
+    chevronRight: `<svg style="width:24px; height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`,
+    switch: `<svg style="width:22px; height:22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 17H4M4 17L8 21M4 17L8 13M4 7H20M20 7L16 3M20 7L16 11"/></svg>`,
+    steps: `<svg style="width:24px; height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>`,
+    plus: `<svg style="width:20px; height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`,
+    draft: `<svg style="width:22px; height:22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`,
+    download: `<svg style="width:22px; height:22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`
 };
 
 // --- Configuration ---
@@ -21,7 +28,12 @@ const state = {
     currentTab: 'timer',
     cleanDate: localStorage.getItem('clean_date') || '2024-01-01',
     diaryDate: DateTime.now(),
+    meetingType: 'na', // 'na' or 'work'
     isStep10EditMode: false,
+    stepsActive: { step: null, section: null }, // Navigation state for Steps tab
+    stepsData: JSON.parse(localStorage.getItem('steps_data')) || {}, // { stepNum: { sections: [{ title: string, questions: [] }] } }
+    stepsAnswers: JSON.parse(localStorage.getItem('steps_answers')) || {}, // { stepNum: { sectionIdx: { qIdx: string } } }
+    stepsDraft: localStorage.getItem('steps_draft') || '',
     step10Questions: JSON.parse(localStorage.getItem('step10_questions')) || [
         "В чому я був сьогодні неправий, що мені варто засвоїти на майбутнє або як вчинити по-іншому? (одержимості, прояви дефектів характеру, завдання шкоди собі та іншим людям)",
         "Чи не було в моєму житті сьогодні: Образ за минуле? Гніву на теперішнє? Страху майбутнього?",
@@ -33,9 +45,31 @@ const state = {
     ],
     step10Answers: JSON.parse(localStorage.getItem('step10_answers') || '{}'),
     meetings: [
-        { group: "Баракуда", address: "вул. Лариси Руденко, 3", schedule: { "1": "20:00-21:00", "5": "16:00-17:15" }, map: "https://www.google.com/maps/search/?api=1&query=вул.+Лариси+Руденко,+3" },
-        { group: "На Позняках", address: "Харківське шосе 57", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "13:00, 19:00", "6": "19:00" }, map: "https://www.google.com/maps/search/?api=1&query=Харківське+шосе+57" },
-        { group: "На часі", address: "вул. Межигірська 22", schedule: { "0": "13:00", "1": "13:00", "2": "13:00", "3": "13:00", "4": "13:00, 19:00", "5": "13:00", "6": "13:00" }, map: "https://www.google.com/maps/search/?api=1&query=вул.+Межигірська+22" }
+        { group: "Баракуда", address: "вул. Лариси Руденко, 3", info: "Приміщення клініки, кабiнет 008 (сходи вниз, зліва від ресепшена)", schedule: { "1": "20:00", "6": "16:00" } },
+        { group: "На Позняках", address: "Харківське шосе 57", info: "Приміщення соц. служби на другому поверсі.", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "13:00, 19:00", "6": "19:00" } },
+        { group: "Вінтаж", address: "Івана Миколайчука, 11", info: "Другий поверх", schedule: { "3": "19:00", "4": "19:00", "5": "19:00" } },
+        { group: "Вишня", address: "м. Вишневе, вул. Святошинська 42", info: "вхід від проїзджої частини, двері з написом 'Коло сили'", schedule: { "6": "18:00" } },
+        { group: "Тiльки Сьогоднi", address: "https://t.me/+rAqy7n9GjfQ3MjYy", info: "Telegram", schedule: { "0": "08:00, 17:00, 21:00", "1": "08:00, 17:00, 21:00", "2": "08:00, 17:00, 21:00", "3": "08:00, 17:00, 21:00", "4": "08:00, 17:00, 21:00", "5": "08:00, 17:00, 21:00, 1:00", "6": "08:00, 17:00, 21:00, 1:00" } },
+        { group: "На часі", address: "вул. Межигірська 22", info: "вхід у дворі, под’їзд з цифрою п’ять\n\nЯкщо домофон не працює, зателефонуйте за номером:  380984170324, пошта: nachasi.nagroup.kyivbased@gmail.com\n\nКарта проїзду: https://youtube.com/shorts/Q7RRhGDwpTw?feature=share", schedule: { "0": "13:00", "1": "13:00", "2": "13:00", "3": "13:00", "4": "13:00, 19:00", "5": "13:00", "6": "13:00" } },
+        { group: "Мayday", address: "вул.Круглоуніверситетська, 7", info: "р-н Бессарабської пл. м.Хрещатик (напівпідвальне приміщення на розі)\n\nПо суботах зібрання є відкритими, можуть приходити незалежні гості.", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } },
+        { group: "Мayday online", address: "https://t.me/maydayonline", info: "Telegram", schedule: { "0": "8:00, 12:00, 21:00", "1": "8:00, 12:00, 21:00", "2": "8:00, 12:00, 21:00", "3": "8:00, 12:00, 21:00", "4": "8:00, 12:00, 21:00, 23:00", "5": "8:00, 12:00, 21:00, 23:00", "6": "8:00, 12:00, 21:00, 23:00" } },
+        { group: "NA Троєщині", address: "вул. Сержа Лифаря, 20", info: "(Сабурова), приміщення жека 313", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } },
+        { group: "Парус", address: "вул. Довженка, 2", info: "М. Шулявська (у підвалі)\n\nКонтактний телефон: 066 16 65 149\n\nКарта проїзду: https://youtu.be/RR4sWOMn-AM", schedule: { "0": "19:00", "1": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } },
+        { group: "Сталь", address: "вул. Маричанська 5", info: "Карта проїзду: https://youtu.be/KSnhnQy936M", schedule: { "1": "19:00", "3": "19:00", "5": "17:00" } },
+        { group: "Буч-АН-ка", address: "м. Буча. вул. Жовтнева 66", info: "ТРЦ Буча - Пассаж 3 поверх. Кімната 136А", schedule: { "0": "19:30", "2": "19:30", "4": "19:30" } },
+        { group: "Нам не все одно", address: "пр. Гонгадзе 20", info: "за Екомаркет маленька будівля з ветклінікою на розі", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } },
+        { group: "Воскрєсєнка", address: "вулиця Микільсько-Слобідська, 5", info: "Для уточнення інформації про зібрання групи звертайтеся до представників групи, телефон для зв'язку: 067 325 11 77", schedule: { "2": "17:30", "4": "17:30" } },
+        { group: "Солом'янка", address: "вул. Максима Кривоноса 21", info: "", schedule: { "0": "19:00", "4": "19:00", "6": "17:00" } },
+        { group: "В Броварах", address: "м. Бровари, вулиця Героїв України 26", info: "4 поверх, приміщення ліворуч (каб.401)\n\nТелефон для довідок: 0636239058", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "13:00", "6": "13:00" } },
+        { group: "Боярка", address: "м. Боярка, вул. Ярослава Мудрого, 62", info: "(Дежнєва), приміщення соціальної служби (сіра будівля), Номер для зв'язку 380992851660", schedule: { "5": "16:00" } },
+        { group: "Вишгород", address: "м.Вишгород, проспект Шевченка 6", info: "Контактний телефон: 067-219-40-61 Олександр", schedule: { "0": "19:00" } },
+        { group: "ВУАН (Ветерани України Анонімні Наркомани)", address: "Вул. Рогнидинська, 3", info: "кім.4, код 236\n\nКонтактний телефон: 096-788-64-90 Евгеній", schedule: { "5": "13:00" } }
+    ],
+    workMeetings: [
+        { group: "ПЗГ", address: "Zoom / Онлайн", info: "Попередні зауваження груп", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } },
+        { group: "БУ", address: "вул. Межигірська 22", info: "Будинок Управління", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } },
+        { group: "МКО", address: "Zoom", info: "Місцевий Комітет Обслуговування", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } },
+        { group: "РКО", address: "вул. Довженка, 2", info: "Регіональний Комітет Обслуговування", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } }
     ]
 };
 
@@ -71,7 +105,7 @@ function init() {
 function openSettingsModal() {
     const dStr = DateTime.fromISO(state.cleanDate).setLocale('uk').toLocaleString({ day: 'numeric', month: 'long', year: 'numeric' });
     openModal(`
-        <h3 class="mb-2" style="color: var(--primary-color);">Дата чистоти</h3>
+        <h3 class="mb-2" style="color: var(--primary-color);">Дата початку чистоти</h3>
         <p class="mb-4" style="font-size: 0.9rem; color: var(--text-secondary);">${dStr}</p>
         <input type="date" id="new-dt" class="modal-input mb-4" value="${state.cleanDate}" style="width: 100%; border: 2px solid var(--border-color); border-radius: 14px; padding: 14px; font-size: 1rem; margin-bottom: 20px;">
         <button class="btn-primary" id="save-new-dt">Зберегти дату</button>
@@ -95,8 +129,9 @@ function renderTab(tab) {
     switch (tab) {
         case 'timer': renderTimer(container); break;
         case 'diary': renderDiary(container); break;
-        case 'meetings': renderMeetings(container); break;
-        case 'step10': renderStep10(container); break;
+        case 'meetings': renderMeetings(main); break;
+        case 'steps': renderSteps(main); break;
+        case 'step10': renderStep10(main); break;
     }
     main.style.overflow = 'auto';
     main.style.paddingBottom = '120px';
@@ -203,15 +238,29 @@ function renderDiary(container) {
 // 3. Meetings
 function renderMeetings(container) {
     const luxonDay = DateTime.now().setZone('Europe/Kyiv').weekday - 1;
-    const meetingsToday = state.meetings.filter(m => m.schedule[String(luxonDay)]);
+    const isWork = state.meetingType === 'work';
+    const meetingsSource = isWork ? state.workMeetings : state.meetings;
+    const meetingsToday = meetingsSource.filter(m => m.schedule[String(luxonDay)]);
 
-    container.innerHTML = `<h2 style="margin-bottom: 24px; font-weight: 900;">📍 Зібрання на сьогодні</h2><div id="m-list"></div>`;
+    container.innerHTML = `
+        <div class="meeting-header-row">
+            <h2 class="meeting-type-title">📍 Зібрання ${isWork ? 'робочі' : 'АН'} на сьогодні</h2>
+            <button class="switcher-btn" id="meeting-type-btn">${ICONS.switch}</button>
+        </div>
+        <div id="m-list"></div>
+    `;
+    
     const list = container.querySelector('#m-list');
+    container.querySelector('#meeting-type-btn').addEventListener('click', () => {
+        state.meetingType = state.meetingType === 'na' ? 'work' : 'na';
+        renderMeetings(container);
+    });
 
     if (meetingsToday.length === 0) {
         list.innerHTML = `<div class="card text-center">Сьогодні зібрань не знайдено.</div>`;
     } else {
         meetingsToday.forEach(m => {
+            const isOnline = m.address.startsWith('http') || m.address.toLowerCase().includes('zoom') || m.address.toLowerCase().includes('онлайн');
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
@@ -219,15 +268,317 @@ function renderMeetings(container) {
                     <span class="card-title">${m.group}</span>
                     <span class="meeting-time-pill">${m.schedule[String(luxonDay)]}</span>
                 </div>
-                <p style="color: var(--text-secondary); margin-bottom: 12px; font-size: 0.95rem;">${m.address}</p>
-                <a href="${m.map}" target="_blank" style="color: var(--accent-color); font-weight: 800; text-decoration: none; display: flex; align-items: center; gap: 4px; font-size: 0.9rem;">Карта →</a>
+                <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 12px;">
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.4; flex: 1;">${m.address}</p>
+                    ${m.info ? `<button class="meeting-info-btn" style="background: none; border: none; padding: 0; color: var(--primary-color); cursor: pointer; opacity: 0.8;">${ICONS.info}</button>` : ''}
+                </div>
+                ${isOnline ? 
+                    `<a href="${m.address.startsWith('http') ? m.address : '#'}" target="_blank" style="color: var(--accent-color); font-weight: 800; text-decoration: none; display: flex; align-items: center; gap: 4px; font-size: 0.9rem;">Приєднатися →</a>` : 
+                    `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.address)}" target="_blank" style="color: var(--accent-color); font-weight: 800; text-decoration: none; display: flex; align-items: center; gap: 4px; font-size: 0.9rem;">Карта →</a>`
+                }
             `;
+
+            if (m.info) {
+                card.querySelector('.meeting-info-btn').addEventListener('click', () => {
+                    openModal(`
+                        <h3 class="mb-4" style="color: var(--primary-color);">Додаткова інформація</h3>
+                        <p style="font-size: 1rem; line-height: 1.6; white-space: pre-wrap; color: var(--text-primary);">${m.info.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>')}</p>
+                    `);
+                });
+            }
+
             list.appendChild(card);
         });
     }
 }
 
-// 4. Step 10
+// 4. Steps (Кроки)
+function renderSteps(container) {
+    const { step, section } = state.stepsActive;
+
+    if (step === null) {
+        // --- 1. Main View (1-12 Steps List + Draft Icon) ---
+        container.innerHTML = `
+            <div class="steps-header-main">
+                <h2 style="margin: 0;">👣 Кроки</h2>
+                <div style="display: flex; gap: 8px;">
+                    <button class="draft-icon-btn" id="open-draft-btn" title="Чернетка">${ICONS.draft}</button>
+                    <button class="draft-icon-btn" id="share-steps-btn" title="Вивантажити в бот">${ICONS.download}</button>
+                </div>
+            </div>
+
+            <div id="steps-list">
+                ${Array.from({ length: 12 }, (_, i) => i + 1).map(num => `
+                    <div class="step-item" data-step="${num}">
+                        <div style="display: flex; align-items: center;">
+                            <div class="step-number">${num}</div>
+                            <span style="font-weight: 700;">Крок ${num}</span>
+                        </div>
+                        <span style="opacity: 0.5;">${ICONS.chevronRight}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+
+        container.querySelector('#open-draft-btn').addEventListener('click', () => {
+            openModal(`
+                <h3 class="mb-4" style="color: var(--primary-color);">📝 Чернетка</h3>
+                <div class="modal-textarea-container">
+                    <textarea id="modal-draft-area" class="modal-input" style="width: 100%; border: 2px solid var(--border-color); border-radius: 14px; padding: 14px; font-size: 1rem;">${state.stepsDraft}</textarea>
+                </div>
+                <button class="btn-primary" id="save-draft-btn">Зберегти чернетку</button>
+            `, true);
+
+            const area = document.getElementById('modal-draft-area');
+            document.getElementById('save-draft-btn').addEventListener('click', () => {
+                state.stepsDraft = area.value;
+                localStorage.setItem('steps_draft', area.value);
+                closeModal();
+                renderSteps(container);
+            });
+        });
+
+        // Share button logic
+        container.querySelector('#share-steps-btn').addEventListener('click', async () => {
+            const btn = container.querySelector('#share-steps-btn');
+            const originalHTML = btn.innerHTML;
+            
+            try {
+                btn.innerHTML = `<span style="font-size: 0.8rem;">...</span>`;
+                btn.disabled = true;
+
+                let text = "👣 *МОЇ КРОКИ*\n\n";
+
+                if (state.stepsDraft) {
+                    text += "📝 *Чернетка:*\n" + state.stepsDraft + "\n\n";
+                }
+
+                let hasData = false;
+                for (let num = 1; num <= 12; num++) {
+                    const stepData = state.stepsData[num];
+                    const stepAns = state.stepsAnswers[num];
+                    if (!stepAns) continue;
+
+                    let stepText = `━━━━━━ *КРОК ${num}* ━━━━━━\n`;
+                    let stepHasAns = false;
+
+                    stepData.sections.forEach((sec, sIdx) => {
+                        const secAns = stepAns[sIdx];
+                        if (!secAns) return;
+
+                        let secHasAns = false;
+                        let secText = `\n📍 *${sec.title}*\n`;
+
+                        sec.questions.forEach((q, qIdx) => {
+                            if (secAns[qIdx]) {
+                                secText += `\n${q}\n- ${secAns[qIdx]}\n`;
+                                secHasAns = true;
+                                stepHasAns = true;
+                                hasData = true;
+                            }
+                        });
+
+                        if (secHasAns) stepText += secText;
+                    });
+
+                    if (stepHasAns) text += stepText + "\n";
+                }
+
+                if (!hasData && !state.stepsDraft) {
+                    alert("У вас ще немає відповідей для відправки.");
+                    return;
+                }
+
+                const tg = window.Telegram?.WebApp;
+                const userId = tg?.initDataUnsafe?.user?.id;
+
+                if (!userId) {
+                    alert("Помилка: Не вдалося отримати ID користувача. Запустіть додаток у Telegram.");
+                    return;
+                }
+
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: userId,
+                        text: text,
+                        parse_mode: 'Markdown'
+                    })
+                });
+
+                if (response.ok) {
+                    alert("Всі відповіді надіслано вам у чат з ботом!");
+                } else {
+                    const err = await response.json();
+                    alert("Помилка при відправці: " + (err.description || "невідома помилка"));
+                }
+
+            } catch (e) {
+                console.error(e);
+                alert("Помилка мережі або системи.");
+            } finally {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }
+        });
+
+        container.querySelectorAll('.step-item').forEach(item => {
+            item.addEventListener('click', () => {
+                state.stepsActive.step = item.dataset.step;
+                renderSteps(container);
+            });
+        });
+
+    } else if (section === null) {
+        // --- 2. Step View (List of Sections within a Step) ---
+        const stepNum = state.stepsActive.step;
+        const sections = state.stepsData[stepNum]?.sections || [];
+
+        container.innerHTML = `
+            <div class="steps-nav-header">
+                <button class="back-btn" id="step-back">${ICONS.chevronLeft}</button>
+                <h2 style="font-weight: 900;">Крок ${stepNum}</h2>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="color: rgba(255,255,255,0.7); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Розділи</h3>
+                <button class="add-btn-small" id="add-section-btn" style="display: flex; align-items: center; gap: 6px;">
+                    ${ICONS.plus} Створити розділ
+                </button>
+            </div>
+
+            <div id="sections-list">
+                ${sections.length === 0 ? '<p style="opacity: 0.5; text-align: center; padding: 40px 0;">Натисніть "Створити розділ", щоб почати</p>' : ''}
+                ${sections.map((s, idx) => `
+                    <div class="step-item" data-idx="${idx}">
+                        <span style="font-weight: 700;">${s.title}</span>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-size: 0.8rem; opacity: 0.5;">${s.questions.length} питань</span>
+                            <span style="opacity: 0.3;">${ICONS.chevronRight}</span>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+
+        container.querySelector('#step-back').addEventListener('click', () => {
+            state.stepsActive.step = null;
+            renderSteps(container);
+        });
+
+        container.querySelector('#add-section-btn').addEventListener('click', () => {
+            openModal(`
+                <h3 class="mb-4" style="color: var(--primary-color);">Новий розділ</h3>
+                <input type="text" id="new-section-title" class="modal-input mb-4" placeholder="Назва розділу (напр. Одержимість)" style="width: 100%; border: 2px solid var(--border-color); border-radius: 14px; padding: 14px; font-size: 1rem;">
+                <button class="btn-primary" id="confirm-add-section">Додати</button>
+            `);
+            document.getElementById('confirm-add-section').addEventListener('click', () => {
+                const title = document.getElementById('new-section-title').value.trim();
+                if (title) {
+                    if (!state.stepsData[stepNum]) state.stepsData[stepNum] = { sections: [] };
+                    state.stepsData[stepNum].sections.push({ title, questions: [] });
+                    localStorage.setItem('steps_data', JSON.stringify(state.stepsData));
+                    closeModal();
+                    renderSteps(container);
+                }
+            });
+        });
+
+        container.querySelectorAll('.step-item').forEach(item => {
+            item.addEventListener('click', () => {
+                state.stepsActive.section = item.dataset.idx;
+                renderSteps(container);
+            });
+        });
+
+    } else {
+        // --- 3. Section View (Questions & Answers) ---
+        const stepNum = state.stepsActive.step;
+        const sectionIdx = state.stepsActive.section;
+        const sectionData = state.stepsData[stepNum].sections[sectionIdx];
+        const answers = state.stepsAnswers[stepNum]?.[sectionIdx] || {};
+
+        container.innerHTML = `
+            <div class="steps-nav-header">
+                <button class="back-btn" id="section-back">${ICONS.chevronLeft}</button>
+                <div style="flex: 1;">
+                    <h2 style="font-weight: 900; line-height: 1.1;">${sectionData.title}</h2>
+                    <p style="font-size: 0.75rem; opacity: 0.6; margin-top: 4px;">Крок ${stepNum}</p>
+                </div>
+            </div>
+
+            <div id="questions-list">
+                ${sectionData.questions.length === 0 ? '<p style="opacity: 0.5; text-align: center; padding: 40px 0;">Питань ще немає. Додайте перше!</p>' : ''}
+                ${sectionData.questions.map((q, qIdx) => `
+                    <div class="question-card" data-qidx="${qIdx}">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                            <p style="font-weight: 700; font-size: 1rem; flex: 1; padding-right: 12px;">${q}</p>
+                        </div>
+                        <div class="answer-preview ${!answers[qIdx] ? 'answer-empty' : ''}" style="cursor: pointer;">
+                            ${answers[qIdx] || 'Торкнись, щоб відповісти...'}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+
+            <button class="btn-primary" id="add-question-btn" style="margin-top: 20px; background: rgba(255,255,255,0.1); border: 1px dashed rgba(255,255,255,0.3);">
+                ${ICONS.plus} Додати питання
+            </button>
+        `;
+
+        container.querySelector('#section-back').addEventListener('click', () => {
+            state.stepsActive.section = null;
+            renderSteps(container);
+        });
+
+        container.querySelector('#add-question-btn').addEventListener('click', () => {
+            openModal(`
+                <h3 class="mb-4" style="color: var(--primary-color);">Додати питання</h3>
+                <textarea id="new-q-text" class="modal-input mb-4" placeholder="Введіть текст питання..." style="width: 100%; min-height: 100px; border: 2px solid var(--border-color); border-radius: 14px; padding: 14px; font-size: 1rem;"></textarea>
+                <button class="btn-primary" id="confirm-add-q">Додати</button>
+            `);
+            document.getElementById('confirm-add-q').addEventListener('click', () => {
+                const text = document.getElementById('new-q-text').value.trim();
+                if (text) {
+                    sectionData.questions.push(text);
+                    localStorage.setItem('steps_data', JSON.stringify(state.stepsData));
+                    closeModal();
+                    renderSteps(container);
+                }
+            });
+        });
+
+        container.querySelectorAll('.answer-preview').forEach(ans => {
+            ans.addEventListener('click', () => {
+                const qIdx = ans.closest('.question-card').dataset.qidx;
+                const questionText = sectionData.questions[qIdx];
+                const currentAns = answers[qIdx] || '';
+
+                openModal(`
+                    <h3 class="mb-4" style="color: var(--primary-color); font-size: 1rem;">${questionText}</h3>
+                    <div class="modal-textarea-container">
+                        <textarea id="step-ans-input" class="modal-input" style="width: 100%; border: 2px solid var(--border-color); border-radius: 14px; padding: 14px; font-size: 1rem;">${currentAns}</textarea>
+                    </div>
+                    <button class="btn-primary" id="save-step-ans">Зберегти відповідь</button>
+                `, true);
+
+                document.getElementById('save-step-ans').addEventListener('click', () => {
+                    if (!state.stepsAnswers[stepNum]) state.stepsAnswers[stepNum] = {};
+                    if (!state.stepsAnswers[stepNum][sectionIdx]) state.stepsAnswers[stepNum][sectionIdx] = {};
+                    
+                    const val = document.getElementById('step-ans-input').value;
+                    state.stepsAnswers[stepNum][sectionIdx][qIdx] = val;
+                    localStorage.setItem('steps_answers', JSON.stringify(state.stepsAnswers));
+                    closeModal();
+                    renderSteps(container);
+                });
+            });
+        });
+    }
+}
+
+// 5. Step 10
 function renderStep10(container) {
     const today = DateTime.now().toISODate();
     const currentData = state.step10Answers[today] || {};
@@ -399,7 +750,24 @@ function renderEditQuestions(parent) {
     parent.appendChild(list);
 
     list.querySelectorAll('.del-q').forEach(b => b.addEventListener('click', () => { state.step10Questions.splice(parseInt(b.dataset.idx), 1); localStorage.setItem('step10_questions', JSON.stringify(state.step10Questions)); renderTab('step10'); }));
-    addBtn.addEventListener('click', () => { const n = prompt('Текст питання:'); if (n) { state.step10Questions.push(n); localStorage.setItem('step10_questions', JSON.stringify(state.step10Questions)); renderTab('step10'); } });
+    addBtn.addEventListener('click', () => {
+        openModal(`
+            <h3 class="mb-4" style="color: var(--primary-color);">Нове питання</h3>
+            <textarea id="new-q-text" placeholder="Введіть текст питання..." style="width: 100%; min-height: 100px; border: 2px solid var(--border-color); border-radius: 16px; padding: 14px; font-size: 1rem; font-family: inherit; resize: none; margin-bottom: 20px; outline: none; display: block;"></textarea>
+            <button class="btn-primary" id="save-new-q-btn">Додати</button>
+        `);
+        const ta = document.getElementById('new-q-text');
+        setTimeout(() => ta.focus(), 100);
+        document.getElementById('save-new-q-btn').addEventListener('click', () => {
+            const val = ta.value.trim();
+            if (val) {
+                state.step10Questions.push(val);
+                localStorage.setItem('step10_questions', JSON.stringify(state.step10Questions));
+                closeModal();
+                renderTab('step10');
+            }
+        });
+    });
 }
 
 // --- Utils ---

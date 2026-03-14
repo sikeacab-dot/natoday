@@ -370,6 +370,16 @@ textarea:focus {
     border-radius: 14px;
     font-weight: 600;
     cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+.btn-secondary:active {
+    transform: scale(0.98);
+    background: #cbd5e1;
 }
 
 .diary-nav-bar {
@@ -423,8 +433,8 @@ textarea:focus {
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    width: 25%;
-    font-size: 0.7rem;
+    width: 20%;
+    font-size: 0.65rem;
     font-weight: 600;
 }
 
@@ -463,6 +473,11 @@ textarea:focus {
     opacity: 0;
     visibility: hidden;
     transition: 0.3s;
+    overflow-y: auto;
+    padding: 40px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .modal-overlay.active {
@@ -472,17 +487,18 @@ textarea:focus {
 
 .modal-content {
     background: white;
-    width: 92%;
-    max-width: 400px;
-    padding: 28px;
+    padding: 24px;
     border-radius: 28px;
     color: var(--text-primary);
     transform: translateY(20px);
     transition: 0.3s;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     position: relative;
-    overflow: hidden;
-    box-sizing: border-box;
+    max-width: 100%;
+    width: 450px;
+    flex-shrink: 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .modal-overlay.active .modal-content {
@@ -530,6 +546,8 @@ textarea:focus {
     border-radius: 12px;
     margin-top: 8px;
     min-height: 44px;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .answer-empty {
@@ -550,4 +568,232 @@ textarea:focus {
     box-sizing: border-box;
     -webkit-appearance: none;
     appearance: none;
+}
+
+/* Steps specific styles */
+.step-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: var(--surface-color);
+    border-radius: 18px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    color: var(--text-primary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.step-number {
+    background: var(--primary-color);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    margin-right: 12px;
+}
+
+.draft-section {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    border-radius: var(--inner-radius);
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.steps-nav-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.back-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.question-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.add-btn-small {
+    background: var(--primary-soft);
+    color: var(--primary-color);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.steps-header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.draft-icon-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.draft-icon-btn:active {
+    transform: scale(0.9);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-textarea-container {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.modal-textarea-container textarea {
+    min-height: 250px;
+    max-height: 50vh;
+    overflow-y: auto !important;
+    display: block;
+}
+/* Toggle Switch Styling */
+.meeting-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.toggle-label {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: white;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 32px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: .4s;
+    border-radius: 34px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 4px;
+    bottom: 3.5px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+input:checked + .toggle-slider {
+    background-color: var(--primary-light);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+.toggle-text {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.8);
+    min-width: 100px;
+}
+
+/* Arrow Switcher Styling */
+.meeting-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.meeting-type-title {
+    font-weight: 900;
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.highlight-type {
+    color: var(--primary-soft);
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 8px;
+    margin: 0 4px;
+}
+
+.meeting-switcher {
+    display: flex;
+    gap: 8px;
+}
+
+.switcher-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.switcher-btn:active {
+    transform: scale(0.9);
+    background: rgba(255, 255, 255, 0.2);
 }
