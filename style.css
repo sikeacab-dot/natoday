@@ -551,8 +551,9 @@ textarea:focus {
 
 .diary-ref {
     font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--primary-color);
+    font-weight: bold;
+    font-style: italic;
+    color: var(--text-primary);
     text-align: right;
 }
 
