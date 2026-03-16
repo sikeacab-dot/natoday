@@ -14,7 +14,7 @@ const ICONS = {
     chevronLeft: `<svg style="width:24px; height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`,
     chevronRight: `<svg style="width:24px; height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`,
     switch: `<svg style="width:22px; height:22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 17H4M4 17L8 21M4 17L8 13M4 7H20M20 7L16 3M20 7L16 11"/></svg>`,
-    steps: `<svg style="width:24px; height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>`,
+    steps: `<svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 14h16M4 21h16"/></svg>`,
     plus: `<svg style="width:20px; height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`,
     draft: `<svg style="width:22px; height:22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`,
     info: `<svg style="width:20px; height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`,
@@ -31,6 +31,7 @@ const state = {
     diaryDate: DateTime.now(),
     meetingType: 'na', // 'na' or 'work'
     isStep10EditMode: false,
+    isStepsEditMode: false,
     stepsActive: { step: null, section: null }, // Navigation state for Steps tab
     stepsData: JSON.parse(localStorage.getItem('steps_data')) || {}, // { stepNum: { sections: [{ title: string, questions: [] }] } }
     stepsAnswers: JSON.parse(localStorage.getItem('steps_answers')) || {}, // { stepNum: { sectionIdx: { qIdx: string } } }
@@ -67,7 +68,7 @@ const state = {
         { group: "ВУАН (Ветерани України Анонімні Наркомани)", address: "Вул. Рогнидинська, 3", info: "кім.4, код 236\n\nКонтактний телефон: 096-788-64-90 Евгеній", schedule: { "5": "13:00" } }
     ],
     workMeetings: [
-        { group: "ПЗГ", address: "Zoom / Онлайн", info: "Попередні зауваження груп", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } },
+        { group: "ПЗГ", address: "Zoom / Онлайн", info: "даних поки немає", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } },
         { group: "БУ", address: "вул. Межигірська 22", info: "Будинок Управління", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } },
         { group: "МКО", address: "Zoom", info: "Місцевий Комітет Обслуговування", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } },
         { group: "РКО", address: "вул. Довженка, 2", info: "Регіональний Комітет Обслуговування", schedule: { "0": "19:00", "1": "19:00", "2": "19:00", "3": "19:00", "4": "19:00", "5": "19:00", "6": "19:00" } }
@@ -95,6 +96,7 @@ function init() {
             item.classList.add('active');
             state.currentTab = tab;
             state.isStep10EditMode = false;
+            state.isStepsEditMode = false;
             renderTab(tab);
         });
     });
@@ -202,38 +204,82 @@ function renderTimer(container) {
 function renderDiary(container) {
     const isToday = state.diaryDate.hasSame(DateTime.now(), 'day');
     const dStr = state.diaryDate.setLocale('uk').toLocaleString({ day: 'numeric', month: 'long' });
+    const key = `${state.diaryDate.month}-${state.diaryDate.day}`;
+    const data = DIARY_DATA[key];
+
+    let contentHtml = '';
+    if (data) {
+        contentHtml = `
+            <div class="diary-content-card">
+                <h2 class="diary-title">${data.title}</h2>
+                <div class="diary-quote-box">
+                    <p class="diary-quote">${data.quote}</p>
+                    <p class="diary-ref">${data.ref}</p>
+                </div>
+                <div class="diary-paragraphs">
+                    ${data.paragraphs.map(p => `<p class="diary-p">${p}</p>`).join('')}
+                </div>
+                <div class="diary-footer">
+                    <h3 class="jft-title">Лише сьогодні:</h3>
+                    <p class="jft-text">${data.justForToday}</p>
+                </div>
+            </div>
+        `;
+    } else {
+        contentHtml = `
+            <div class="card" style="text-align: center; padding: 40px 20px;">
+                <div style="font-size: 3rem; margin-bottom: 20px;">📖</div>
+                <h3 class="mb-2">Даних для цієї дати поки немає</h3>
+                <p style="opacity: 0.7;">Ми працюємо над додаванням всіх текстів з перекладу.</p>
+            </div>
+        `;
+    }
 
     container.innerHTML = `
         <div class="diary-nav-bar">
-            <button class="date-btn" id="prev-d">←</button>
-            <div class="current-date-display" id="pick-d-dt" style="cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--primary-color); font-weight: 700;">
-                ${dStr} ${ICONS.calendar}
+            <button class="date-btn" id="prev-d">${ICONS.chevronLeft}</button>
+            <div class="current-date-display" id="pick-d-dt">
+                <span>${dStr}</span> ${ICONS.calendar}
             </div>
-            <button class="date-btn" id="next-d">→</button>
+            <button class="date-btn" id="next-d" style="transform: rotate(180deg);">${ICONS.chevronLeft}</button>
         </div>
         
-        ${!isToday ? `<button class="btn-secondary mb-4" id="go-today" style="width:100%; margin-bottom: 16px;">Сьогодні</button>` : ''}
+        ${!isToday ? `<button class="btn-secondary" id="go-today" style="width:100%; margin-bottom: 20px; border-radius: 12px; height: 44px; font-weight: 600;">Сьогодні</button>` : ''}
 
-        <div class="card">
-            <h3 class="card-title" style="margin-bottom: 20px;">Щоденна медитація</h3>
-            <div id="d-text" style="font-size: 1.15rem; line-height: 1.75; opacity: 0.9;">Завантаження...</div>
+        <div id="diary-container-inner" class="fade-in">
+            ${contentHtml}
         </div>
     `;
 
-    const lessons = [
-        "Сьогодні я буду пам'ятати, що моє одужання залежить від моєї готовності бути чесним. Саме чесність перед собою відкриває двері до змін.",
-        "Прийняття — це не згода зі всім поганим, це визнання реальності такою, якою вона є зараз. Лише з цієї точки можливий ріст.",
-        "Смирення означає бачити себе таким, який я є насправді — з усіма силами та недоліками, без потреби прикидатися кимось іншим."
-    ];
-    container.querySelector('#d-text').innerText = lessons[Math.abs(state.diaryDate.day % lessons.length)];
-
-    container.querySelector('#prev-d').addEventListener('click', () => { state.diaryDate = state.diaryDate.minus({ days: 1 }); renderDiary(container); });
-    container.querySelector('#next-d').addEventListener('click', () => { state.diaryDate = state.diaryDate.plus({ days: 1 }); renderDiary(container); });
-    container.querySelector('#pick-d-dt').addEventListener('click', () => {
-        openModal(`<h3 class="mb-4">Оберіть дату</h3><input type="date" id="sel-dt" class="modal-input mb-4" value="${state.diaryDate.toISODate()}" style="width:100%; border:2px solid var(--border-color); border-radius:14px; padding:14px; margin-bottom:20px;"><button class="btn-primary" id="set-dt">Перейти</button>`);
-        document.getElementById('set-dt').addEventListener('click', () => { state.diaryDate = DateTime.fromISO(document.getElementById('sel-dt').value); closeModal(); renderDiary(container); });
+    container.querySelector('#prev-d').addEventListener('click', () => { 
+        state.diaryDate = state.diaryDate.minus({ days: 1 }); 
+        renderDiary(container); 
     });
-    if (!isToday) container.querySelector('#go-today').addEventListener('click', () => { state.diaryDate = DateTime.now(); renderDiary(container); });
+    container.querySelector('#next-d').addEventListener('click', () => { 
+        state.diaryDate = state.diaryDate.plus({ days: 1 }); 
+        renderDiary(container); 
+    });
+    container.querySelector('#pick-d-dt').addEventListener('click', () => {
+        openModal(`
+            <h3 class="mb-4">Оберіть дату</h3>
+            <div class="modal-body-content">
+                <input type="date" id="sel-dt" class="modal-input mb-4" value="${state.diaryDate.toISODate()}" 
+                    style="width:100%; border:2px solid var(--border-color); border-radius:14px; padding:14px; margin-bottom:20px;">
+                <button class="btn-primary" id="set-dt" style="width:100%;">Перейти</button>
+            </div>
+        `);
+        document.getElementById('set-dt').addEventListener('click', () => { 
+            state.diaryDate = DateTime.fromISO(document.getElementById('sel-dt').value); 
+            closeModal(); 
+            renderDiary(container); 
+        });
+    });
+    if (!isToday) {
+        container.querySelector('#go-today').addEventListener('click', () => { 
+            state.diaryDate = DateTime.now(); 
+            renderDiary(container); 
+        });
+    }
 }
 
 // 3. Meetings
@@ -250,7 +296,7 @@ function renderMeetings(container) {
         </div>
         <div id="m-list"></div>
     `;
-    
+
     const list = container.querySelector('#m-list');
     container.querySelector('#meeting-type-btn').addEventListener('click', () => {
         state.meetingType = state.meetingType === 'na' ? 'work' : 'na';
@@ -273,17 +319,18 @@ function renderMeetings(container) {
                     <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.4; flex: 1;">${m.address}</p>
                     ${m.info ? `<button class="meeting-info-btn" style="background: none; border: none; padding: 0; color: var(--primary-color); cursor: pointer; opacity: 0.8;">${ICONS.info}</button>` : ''}
                 </div>
-                ${isOnline ? 
-                    `<a href="${m.address.startsWith('http') ? m.address : '#'}" target="_blank" style="color: var(--accent-color); font-weight: 800; text-decoration: none; display: flex; align-items: center; gap: 4px; font-size: 0.9rem;">Приєднатися →</a>` : 
+                ${isOnline ?
+                    `<a href="${m.address.startsWith('http') ? m.address : '#'}" target="_blank" style="color: var(--accent-color); font-weight: 800; text-decoration: none; display: flex; align-items: center; gap: 4px; font-size: 0.9rem;">Приєднатися →</a>` :
                     `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.address)}" target="_blank" style="color: var(--accent-color); font-weight: 800; text-decoration: none; display: flex; align-items: center; gap: 4px; font-size: 0.9rem;">Карта →</a>`
                 }
             `;
 
             if (m.info) {
                 card.querySelector('.meeting-info-btn').addEventListener('click', () => {
+                    const infoText = m.info.trim() || "даних поки немає";
                     openModal(`
-                        <h3 class="mb-4" style="color: var(--primary-color);">Додаткова інформація</h3>
-                        <p style="font-size: 1rem; line-height: 1.6; white-space: pre-wrap; color: var(--text-primary);">${m.info.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>')}</p>
+                        <h3 class="mb-4" style="color: var(--primary-color);">Інфо</h3>
+                        <p style="font-size: 1rem; line-height: 1.6; white-space: pre-wrap; color: var(--text-primary);">${infoText.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>')}</p>
                     `);
                 });
             }
@@ -343,7 +390,7 @@ function renderSteps(container) {
         container.querySelector('#share-steps-btn').addEventListener('click', async () => {
             const btn = container.querySelector('#share-steps-btn');
             const originalHTML = btn.innerHTML;
-            
+
             try {
                 btn.innerHTML = `<span style="font-size: 0.8rem;">...</span>`;
                 btn.disabled = true;
@@ -439,33 +486,70 @@ function renderSteps(container) {
         container.innerHTML = `
             <div class="steps-nav-header">
                 <button class="back-btn" id="step-back">${ICONS.chevronLeft}</button>
-                <h2 style="font-weight: 900;">Крок ${stepNum}</h2>
+                <div style="flex: 1;">
+                    <h2 style="font-weight: 900; margin: 0;">Крок ${stepNum}</h2>
+                </div>
+                <button class="btn-secondary" id="edit-sections-btn" style="padding: 0; border-radius: 12px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white;">
+                    ${state.isStepsEditMode ? ICONS.check : ICONS.pencil}
+                </button>
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h3 style="color: rgba(255,255,255,0.7); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Розділи</h3>
-                <button class="add-btn-small" id="add-section-btn" style="display: flex; align-items: center; gap: 6px;">
-                    ${ICONS.plus} Створити розділ
-                </button>
             </div>
 
             <div id="sections-list">
                 ${sections.length === 0 ? '<p style="opacity: 0.5; text-align: center; padding: 40px 0;">Натисніть "Створити розділ", щоб почати</p>' : ''}
                 ${sections.map((s, idx) => `
-                    <div class="step-item" data-idx="${idx}">
-                        <span style="font-weight: 700;">${s.title}</span>
+                    <div class="step-item ${state.isStepsEditMode ? 'edit-mode' : ''}" data-idx="${idx}" style="${state.isStepsEditMode ? 'cursor: default;' : ''}">
+                        <span style="font-weight: 700; flex: 1;">${s.title}</span>
+                        ${state.isStepsEditMode ? `
+                            <button class="del-section-btn" data-idx="${idx}" style="background:none; border:none; color:#ef4444; padding: 8px; cursor: pointer;">${ICONS.trash}</button>
+                        ` : `
                         <div style="display: flex; align-items: center; gap: 12px;">
                             <span style="font-size: 0.8rem; opacity: 0.5;">${s.questions.length} питань</span>
                             <span style="opacity: 0.3;">${ICONS.chevronRight}</span>
                         </div>
+                        `}
                     </div>
                 `).join('')}
             </div>
+
+            <button class="btn-primary" id="add-section-btn" style="margin-top: 20px; background: rgba(255,255,255,0.1); border: 1px dashed rgba(255,255,255,0.3);">
+                ${ICONS.plus} Створити розділ
+            </button>
         `;
 
         container.querySelector('#step-back').addEventListener('click', () => {
             state.stepsActive.step = null;
+            state.isStepsEditMode = false;
             renderSteps(container);
+        });
+
+        container.querySelector('#edit-sections-btn').addEventListener('click', () => {
+            state.isStepsEditMode = !state.isStepsEditMode;
+            renderSteps(container);
+        });
+
+        container.querySelectorAll('.del-section-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (confirm('Видалити цей розділ? Всі питання до нього будуть також видалені.')) {
+                    state.stepsData[stepNum].sections.splice(btn.dataset.idx, 1);
+                    if (state.stepsAnswers[stepNum]) {
+                        delete state.stepsAnswers[stepNum][btn.dataset.idx];
+                        const newAnswers = {};
+                        Object.keys(state.stepsAnswers[stepNum]).forEach(k => {
+                            if (parseInt(k) < parseInt(btn.dataset.idx)) newAnswers[k] = state.stepsAnswers[stepNum][k];
+                            else if (parseInt(k) > parseInt(btn.dataset.idx)) newAnswers[parseInt(k) - 1] = state.stepsAnswers[stepNum][k];
+                        });
+                        state.stepsAnswers[stepNum] = newAnswers;
+                        localStorage.setItem('steps_answers', JSON.stringify(state.stepsAnswers));
+                    }
+                    localStorage.setItem('steps_data', JSON.stringify(state.stepsData));
+                    renderSteps(container);
+                }
+            });
         });
 
         container.querySelector('#add-section-btn').addEventListener('click', () => {
@@ -486,8 +570,9 @@ function renderSteps(container) {
             });
         });
 
-        container.querySelectorAll('.step-item').forEach(item => {
+        container.querySelectorAll('.step-item:not(.edit-mode)').forEach(item => {
             item.addEventListener('click', () => {
+                if (state.isStepsEditMode) return;
                 state.stepsActive.section = item.dataset.idx;
                 renderSteps(container);
             });
@@ -504,9 +589,12 @@ function renderSteps(container) {
             <div class="steps-nav-header">
                 <button class="back-btn" id="section-back">${ICONS.chevronLeft}</button>
                 <div style="flex: 1;">
-                    <h2 style="font-weight: 900; line-height: 1.1;">${sectionData.title}</h2>
-                    <p style="font-size: 0.75rem; opacity: 0.6; margin-top: 4px;">Крок ${stepNum}</p>
+                    <h2 style="font-weight: 900; line-height: 1.1; margin: 0;">${sectionData.title}</h2>
+                    <p style="font-size: 0.75rem; opacity: 0.6; margin-top: 4px; margin-bottom: 0;">Крок ${stepNum}</p>
                 </div>
+                <button class="btn-secondary" id="edit-questions-btn" style="padding: 0; border-radius: 12px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white;">
+                    ${state.isStepsEditMode ? ICONS.check : ICONS.pencil}
+                </button>
             </div>
 
             <div id="questions-list">
@@ -514,9 +602,12 @@ function renderSteps(container) {
                 ${sectionData.questions.map((q, qIdx) => `
                     <div class="question-card" data-qidx="${qIdx}">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
-                            <p style="font-weight: 700; font-size: 1rem; flex: 1; padding-right: 12px;">${q}</p>
+                            <p style="font-weight: 700; font-size: 1rem; flex: 1; padding-right: 12px; margin: 0;">${q}</p>
+                            ${state.isStepsEditMode ? `
+                                <button class="del-question-btn" data-qidx="${qIdx}" style="background:none; border:none; color:#ef4444; padding: 4px; cursor: pointer;">${ICONS.trash}</button>
+                            ` : ''}
                         </div>
-                        <div class="answer-preview ${!answers[qIdx] ? 'answer-empty' : ''}" style="cursor: pointer;">
+                        <div class="answer-preview ${!answers[qIdx] ? 'answer-empty' : ''}" style="cursor: pointer; ${state.isStepsEditMode ? 'opacity: 0.5; pointer-events: none;' : ''}">
                             ${answers[qIdx] || 'Торкнись, щоб відповісти...'}
                         </div>
                     </div>
@@ -530,7 +621,34 @@ function renderSteps(container) {
 
         container.querySelector('#section-back').addEventListener('click', () => {
             state.stepsActive.section = null;
+            state.isStepsEditMode = false;
             renderSteps(container);
+        });
+
+        container.querySelector('#edit-questions-btn').addEventListener('click', () => {
+            state.isStepsEditMode = !state.isStepsEditMode;
+            renderSteps(container);
+        });
+
+        container.querySelectorAll('.del-question-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (confirm('Видалити це питання та всі відповіді до нього?')) {
+                    sectionData.questions.splice(btn.dataset.qidx, 1);
+                    if (state.stepsAnswers[stepNum] && state.stepsAnswers[stepNum][sectionIdx]) {
+                        delete state.stepsAnswers[stepNum][sectionIdx][btn.dataset.qidx];
+                        const newAns = {};
+                        Object.keys(state.stepsAnswers[stepNum][sectionIdx]).forEach(k => {
+                            if (parseInt(k) < parseInt(btn.dataset.qidx)) newAns[k] = state.stepsAnswers[stepNum][sectionIdx][k];
+                            else if (parseInt(k) > parseInt(btn.dataset.qidx)) newAns[parseInt(k) - 1] = state.stepsAnswers[stepNum][sectionIdx][k];
+                        });
+                        state.stepsAnswers[stepNum][sectionIdx] = newAns;
+                        localStorage.setItem('steps_answers', JSON.stringify(state.stepsAnswers));
+                    }
+                    localStorage.setItem('steps_data', JSON.stringify(state.stepsData));
+                    renderSteps(container);
+                }
+            });
         });
 
         container.querySelector('#add-question-btn').addEventListener('click', () => {
@@ -567,7 +685,7 @@ function renderSteps(container) {
                 document.getElementById('save-step-ans').addEventListener('click', () => {
                     if (!state.stepsAnswers[stepNum]) state.stepsAnswers[stepNum] = {};
                     if (!state.stepsAnswers[stepNum][sectionIdx]) state.stepsAnswers[stepNum][sectionIdx] = {};
-                    
+
                     const val = document.getElementById('step-ans-input').value;
                     state.stepsAnswers[stepNum][sectionIdx][qIdx] = val;
                     localStorage.setItem('steps_answers', JSON.stringify(state.stepsAnswers));

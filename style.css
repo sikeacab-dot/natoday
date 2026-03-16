@@ -457,6 +457,153 @@ textarea:focus {
     height: 28px;
 }
 
+/* Diary Specific Styles */
+.diary-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    background: white;
+    padding: 8px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.date-btn {
+    background: var(--bg-color);
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: all 0.2s ease;
+}
+
+.date-btn:active {
+    transform: scale(0.9);
+    background: var(--border-color);
+}
+
+.date-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.current-date-display {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 10px;
+}
+
+.current-date-display:active {
+    background: var(--bg-color);
+}
+
+.current-date-display svg {
+    width: 20px;
+    height: 20px;
+    color: var(--primary-color);
+}
+
+.diary-content-card {
+    background: white;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    margin-bottom: 100px; /* Space for bottom nav */
+}
+
+.diary-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: 24px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.diary-quote-box {
+    background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f5 100%);
+    border-left: 5px solid var(--primary-color);
+    padding: 20px;
+    border-radius: 0 16px 16px 0;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+}
+
+.diary-quote {
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.diary-ref {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-align: right;
+}
+
+.diary-paragraphs {
+    margin-bottom: 30px;
+}
+
+.diary-p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-bottom: 18px;
+}
+
+.diary-footer {
+    background: var(--bg-color);
+    padding: 24px;
+    border-radius: 20px;
+    border: 1px dashed var(--primary-color);
+    color: var(--text-primary);
+}
+
+.jft-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.jft-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.5;
+    font-style: italic;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
 /* Modal */
 .modal-overlay {
     position: fixed;
