@@ -1,4 +1,4 @@
-const DIARY_DATA = {
+export const DIARY_DATA = {
     "1-1": {
         title: "Пильність",
         quote: "Ми зберігаємо те, що маємо, тільки з пильністю...",

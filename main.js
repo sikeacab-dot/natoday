@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { DIARY_DATA } from './diary_data.js';
 
 // --- SVGs for Icons ---
 const ICONS = {
